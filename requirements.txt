@@ -3,3 +3,6 @@ pandas
 transformers
 torch
 lightning
+tqdm
+requests
+# pip freeze > requirements.txt для автоматического создания 
