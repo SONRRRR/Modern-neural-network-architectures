@@ -119,5 +119,26 @@ def tokenizer(input, output, tok_type, vocab_size):
     
     print(f"Словарь сохранён: {output}")
 
+def encode(text, vocab):
+    """Превращает текст в токены"""
+    tokens = []
+    i = 0
+    while i < len(text):
+        found = False
+        for token in sorted(vocab.keys(), key=len, reverse=True):
+            if text[i:].startswith(token):
+                tokens.append(vocab[token])
+                i += len(token)
+                found = True
+                break
+        if not found:
+            i += 1
+    return tokens
+
+def decode(tokens, vocab):
+    """Превращает токены обратно в текст"""
+    reverse_vocab = {v: k for k, v in vocab.items()}
+    return ''.join(reverse_vocab.get(t, '') for t in tokens)
+
 
         
