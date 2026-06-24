@@ -5,4 +5,5 @@ torch
 lightning
 tqdm
 requests
+python-dotenv
 # pip freeze > requirements.txt для автоматического создания 

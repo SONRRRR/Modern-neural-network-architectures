@@ -20,3 +20,4 @@ checkpoints/
 
 # Colab
 .DS_Store
+venv_lab/
