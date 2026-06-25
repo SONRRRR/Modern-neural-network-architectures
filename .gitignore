@@ -8,10 +8,6 @@ env/
 venv/
 .venv/
 
-# Jupyter
-.ipynb_checkpoints/
-*.ipynb_checkpoints
-
 # Data
 data/
 *.csv
@@ -24,3 +20,4 @@ checkpoints/
 
 # Colab
 .DS_Store
+venv_lab/
