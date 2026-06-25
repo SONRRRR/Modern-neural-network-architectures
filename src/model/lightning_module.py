@@ -85,6 +85,27 @@ class GPTLightningModule(pl.LightningModule):
             self.gradient_clip_val
         )
 
+    def on_after_backward(self):
+        """Логирование глобальной и локальных норм градиентов"""
+        
+        total_norm_squared = torch.zeros((), device=self.device)
+        
+        for name, parameter in self.model.named_parameters():
+            if parameter.grad is None:
+                continue
+            
+            grad_norm = parameter.grad.detach().norm(2)
+            total_norm_squared += grad_norm.pow(2)
+            
+            # Логирование локальной нормы каждые 10 шагов
+            if self.global_step % 10 == 0:
+                safe_name = name.replace('.', '/')
+                self.log(f'grad_norm/{safe_name}', grad_norm, on_step=True, on_epoch=False)
+        
+        # Логирование глобальной нормы
+        global_norm = total_norm_squared.sqrt()
+        self.log('grad_norm/global', global_norm, on_step=True, on_epoch=False)
+
     def setup_loggers_and_callbacks(self):
         """Настройка TensorBoard и ModelCheckpoint"""
         
