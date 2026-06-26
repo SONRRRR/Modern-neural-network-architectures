@@ -6,4 +6,5 @@ lightning
 tqdm
 requests
 python-dotenv
+triton>=2.0.0
 # pip freeze > requirements.txt для автоматического создания 
